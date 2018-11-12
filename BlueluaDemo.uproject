@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{6908BE16-4D94-C938-4E39-D98AC80EDED9}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "BlueluaDemo",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Bluelua"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "Bluelua",
+			"Enabled": true
+		}
+	]
+}
