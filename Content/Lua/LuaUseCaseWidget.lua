@@ -4,6 +4,7 @@ local Super = Super
 local print = print
 local loadClass = loadClass
 local createDelegate = createDelegate
+local deleteDelegate = deleteDelegate
 
 -- Override UserWidget Construct Event
 function m:Construct()
@@ -23,11 +24,18 @@ function m:Construct()
     Super.Button1.OnClicked:Add(function() print('Button1 OnClicked') end)
 
     local KismetSystemLibrary = loadClass('KismetSystemLibrary')
-    KismetSystemLibrary:K2_SetTimerDelegate(createDelegate(Super, self, self.DelegateCallback), 1, true)
+    self.timer_delegate = createDelegate(Super, self, self.DelegateCallback)
+    KismetSystemLibrary:K2_SetTimerDelegate(self.timer_delegate, 1, true)
 end
 
+local count = 0
 function m:DelegateCallback()
+    count = count + 1
     print('DelegateCallback', tostring(self))
+    if count > 10 and self.timer_delegate then
+        deleteDelegate(self.timer_delegate)
+        self.timer_delegate = nil
+    end
 end
 
 -- Override UserWidget Destruct Event
