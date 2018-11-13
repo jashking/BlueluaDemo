@@ -3,6 +3,7 @@ local m = {}
 local Super = Super
 local print = print
 local loadClass = loadClass
+local createDelegate = createDelegate
 
 -- Override UserWidget Construct Event
 function m:Construct()
@@ -20,6 +21,13 @@ function m:Construct()
 
     -- binding delegate to parent widget's button
     Super.Button1.OnClicked:Add(function() print('Button1 OnClicked') end)
+
+    local KismetSystemLibrary = loadClass('KismetSystemLibrary')
+    KismetSystemLibrary:K2_SetTimerDelegate(createDelegate(Super, self, self.DelegateCallback), 1, true)
+end
+
+function m:DelegateCallback()
+    print('DelegateCallback', tostring(self))
 end
 
 -- Override UserWidget Destruct Event
