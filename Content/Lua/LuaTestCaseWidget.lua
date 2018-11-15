@@ -2,9 +2,9 @@ local m = {}
 
 local Super = Super
 local print = print
-local loadClass = loadClass
-local loadStruct = loadStruct
-local enum = enum
+local LoadClass = LoadClass
+local LoadStruct = LoadStruct
+local GetEnum = GetEnum
 
 function m:Construct()
     print('LuaTestCaseWidget Construct')
@@ -34,7 +34,7 @@ function m:OnButton0Clicked()
     self:TestFunction('EmptyFunctionFourStringParam', function () local r = Super:EmptyFunctionFourStringParam('1', '2', '3', '4') end)
     self:TestFunction('EmptyFunctionFiveStringParam', function () local r = Super:EmptyFunctionFiveStringParam('1', '2', '3', '4', '5') end)
 
-    local KismetMathLibrary = loadClass('KismetMathLibrary')
+    local KismetMathLibrary = LoadClass('KismetMathLibrary')
     local v = KismetMathLibrary:MakeVector(1, 2, 3)
 
     self:TestFunction('EmptyFunctionOneVectorParam', function () local r = Super:EmptyFunctionOneVectorParam(v) end)

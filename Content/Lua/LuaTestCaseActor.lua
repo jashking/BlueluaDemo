@@ -2,9 +2,9 @@ local m = {}
 
 local Super = Super
 local print = print
-local loadClass = loadClass
-local loadStruct = loadStruct
-local enum = enum
+local LoadClass = LoadClass
+local LoadStruct = LoadStruct
+local GetEnum = GetEnum
 
 function m:ReceiveBeginPlay()
     print('LuaTestCaseActor begin play in lua' .. Super.LuaFilePath)
@@ -15,7 +15,7 @@ function m:TestBPEmptyFunction()
 end
 
 function m:TestBPFunction1(Param1, Param2, Param3)
-    local KismetMathLibrary = loadClass('KismetMathLibrary')
+    local KismetMathLibrary = LoadClass('KismetMathLibrary')
 
     local scale = KismetMathLibrary:MakeVector(3, 2, 1)
     local out_v = KismetMathLibrary:MakeVector(Param1.X * 2, Param1.Y * 2, Param1.Z * 2)

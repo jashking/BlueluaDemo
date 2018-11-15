@@ -2,16 +2,16 @@ local m = {}
 
 local Super = Super
 local print = print
-local loadClass = loadClass
-local createDelegate = createDelegate
-local deleteDelegate = deleteDelegate
+local LoadClass = LoadClass
+local CreateDelegate = CreateDelegate
+local DeleteDelegate = DeleteDelegate
 
 -- Override UserWidget Construct Event
 function m:Construct()
     print('LuaUseCaseWidget Construct')
 
     -- load UTestObject's class
-    local TestObjectClass = loadClass('TestObject')
+    local TestObjectClass = LoadClass('TestObject')
 
     -- new a UTestObject instance
     local TestObjectInstance = TestObjectClass()
@@ -23,18 +23,18 @@ function m:Construct()
     -- binding delegate to parent widget's button
     Super.Button1.OnClicked:Add(function() print('Button1 OnClicked') end)
 
-    local KismetSystemLibrary = loadClass('KismetSystemLibrary')
-    self.timer_delegate = createDelegate(Super, self, self.DelegateCallback)
-    KismetSystemLibrary:K2_SetTimerDelegate(self.timer_delegate, 1, true)
+    local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
+    self.TimerDelegate = CreateDelegate(Super, self, self.DelegateCallback)
+    KismetSystemLibrary:K2_SetTimerDelegate(self.TimerDelegate, 1, true)
 end
 
 local count = 0
 function m:DelegateCallback()
     count = count + 1
     print('DelegateCallback', tostring(self))
-    if count > 10 and self.timer_delegate then
-        deleteDelegate(self.timer_delegate)
-        self.timer_delegate = nil
+    if count > 10 and self.TimerDelegate then
+        DeleteDelegate(self.TimerDelegate)
+        self.TimerDelegate = nil
     end
 end
 
