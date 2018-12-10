@@ -26,6 +26,8 @@ function m:Construct()
     local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
     self.TimerDelegate = CreateDelegate(Super, self, self.DelegateCallback)
     KismetSystemLibrary:K2_SetTimerDelegate(self.TimerDelegate, 1, true)
+
+    Super:TestFunction2(false, 200)
 end
 
 local count = 0
@@ -105,9 +107,15 @@ function m:TestLuaOverrideBPFunction(Param1, Param2, Param3, Param4, Param5, Par
     return Param12, Param1, Param2, Param3, Param4, Param5, Param6, Param7, Param8, Param9, Param10, Param11, Param12, Param13
 end
 
+function m:TestFunction2(Param1, Param2)
+    print('TestFunction2 in lua', Param1, Param2)
+    return Param1, Param2
+end
+
 function m:OnInitBPFunctionOverriding()
     return {
         'TestLuaOverrideBPFunction',
+        'TestFunction2',
     }
 end
 
