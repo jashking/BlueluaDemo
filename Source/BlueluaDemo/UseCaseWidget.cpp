@@ -6,16 +6,21 @@ void UUseCaseWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	TestScriptFunction();
-	TestScriptFunctionWithParam(TEXT("100"), FVector(1, 2, 3));
+	TestBlueprintNativeEvent1(TEXT("Test"));
+	TestBlueprintNativeEvent2(TEXT("Test"));
+	TestBlueprintImplementableEvent(TEXT("Test"));
 }
 
-int32 UUseCaseWidget::TestFunction()
+FString UUseCaseWidget::TestBlueprintNativeEvent1_Implementation(const FString& InString)
 {
-	return 1;
+	UE_LOG(LogTemp, Display, TEXT("TestBlueprintNativeEvent1 in C++"));
+
+	return InString;
 }
 
-int32 UUseCaseWidget::TestFunctionWithParam(const FString& Param1, const FVector& Param2)
+FString UUseCaseWidget::TestBlueprintNativeEvent2_Implementation(const FString& InString)
 {
-	return 2;
+	UE_LOG(LogTemp, Display, TEXT("TestBlueprintNativeEvent2 in C++"));
+
+	return InString;
 }

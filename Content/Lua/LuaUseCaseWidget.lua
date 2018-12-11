@@ -45,24 +45,25 @@ function m:Destruct()
     print('LuaUseCaseWidget Destruct')
 end
 
--- Override UseCaseWidget TestScriptFunction Event
-function m:TestScriptFunction()
-    print('Lua TestScriptFunction get called')
-
-    -- call parent's TestFunction
-    local v = Super:TestFunction()
-    return v
+-- Override UseCaseWidget TestBlueprintImplementableEvent Event
+function m:TestBlueprintImplementableEvent(Param)
+    print('TestBlueprintImplementableEvent in lua')
+	Super:TestBlueprintImplementableEvent_Default(Param)
+	return Param
 end
 
--- Override UseCaseWidget TestScriptFunctionWithParam Event
-function m:TestScriptFunctionWithParam(Param1, Param2)
-    print('Lua TestScriptFunctionWithParam get called')
-    print('Param1 is', Param1)
-    print('Param2 is', Param2.X, Param2.Y, Param2.Z)
+-- Override UseCaseWidget TestBlueprintNativeEvent1 Event
+function m:TestBlueprintNativeEvent1(Param)
+	print('TestBlueprintNativeEvent1 in lua')
+	Super:TestBlueprintNativeEvent1_Default(Param)
+	return Param
+end
 
-    -- call parent's TestFunctionWithParam
-    local v = Super:TestFunctionWithParam(Param1, Param2)
-    return v
+-- Override UseCaseWidget TestBlueprintNativeEvent2 Event
+function m:TestBlueprintNativeEvent2(Param)
+	print('TestBlueprintNativeEvent2 in lua')
+	Super:TestBlueprintNativeEvent2_Default(Param)
+	return Param
 end
 
 function m:TestLuaOverrideBPFunction(Param1, Param2, Param3, Param4, Param5, Param6, Param7, Param8, Param9, Param10, Param11, Param12, Param13)

@@ -17,17 +17,16 @@ class BLUELUADEMO_API UUseCaseWidget : public ULuaImplementableWidget
 public:
 	virtual void NativeConstruct() override;
 
-	UFUNCTION(BlueprintPure)
-	int32 TestFunction();
-
-	UFUNCTION(BlueprintPure)
-	int32 TestFunctionWithParam(const FString& Param1, const FVector& Param2);
-
 	UFUNCTION(BlueprintImplementableEvent)
-	int32 TestScriptFunction();
+	FString TestBlueprintImplementableEvent(const FString& InString);
 
-	UFUNCTION(BlueprintImplementableEvent)
-	int32 TestScriptFunctionWithParam(const FString& Param1, const FVector& Param2);
+	UFUNCTION(BlueprintNativeEvent)
+	FString TestBlueprintNativeEvent1(const FString& InString);
+	FString TestBlueprintNativeEvent1_Implementation(const FString& InString);
+
+	UFUNCTION(BlueprintNativeEvent)
+	FString TestBlueprintNativeEvent2(const FString& InString);
+	FString TestBlueprintNativeEvent2_Implementation(const FString& InString);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FString StrValue;
