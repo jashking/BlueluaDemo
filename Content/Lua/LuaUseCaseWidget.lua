@@ -3,8 +3,9 @@ local m = {}
 local Super = Super
 local print = print
 local LoadClass = LoadClass
-local CreateDelegate = CreateDelegate
-local DeleteDelegate = DeleteDelegate
+local CreateFunctionDelegate = CreateFunctionDelegate
+
+local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
 
 -- Override UserWidget Construct Event
 function m:Construct()
@@ -21,10 +22,10 @@ function m:Construct()
     Super.StrValue = 'StrValue'
 
     -- binding delegate to parent widget's button
-    Super.Button1.OnClicked:Add(function() print('Button1 OnClicked') end)
+    self.Button1ClickedDelegate = self.Button1ClickedDelegate or CreateFunctionDelegate(Super, function() print('Button1 OnClicked') end)
+    Super.Button1.OnClicked:Add(self.Button1ClickedDelegate)
 
-    local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
-    self.TimerDelegate = CreateDelegate(Super, self, self.DelegateCallback)
+    self.TimerDelegate = self.TimerDelegate or CreateFunctionDelegate(Super, self, self.DelegateCallback)
     KismetSystemLibrary:K2_SetTimerDelegate(self.TimerDelegate, 1, true)
 
     Super:TestFunction2(false, 200)
@@ -33,9 +34,11 @@ end
 local count = 0
 function m:DelegateCallback()
     count = count + 1
-    print('DelegateCallback', tostring(self))
-    if count > 10 and self.TimerDelegate then
-        DeleteDelegate(self.TimerDelegate)
+    print('DelegateCallback', tostring(self), count)
+    if count >= 10 and self.TimerDelegate then
+        KismetSystemLibrary:K2_ClearTimerDelegate(self.TimerDelegate)
+        -- Clear: unbind Delegate and lua function, but Delegate Object still exit until set it with nil
+        self.TimerDelegate:Clear()
         self.TimerDelegate = nil
     end
 end
