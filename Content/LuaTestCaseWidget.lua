@@ -5,14 +5,15 @@ local print = print
 local loadClass = loadClass
 local loadStruct = loadStruct
 local enum = enum
+local CreateFunctionDelegate = CreateFunctionDelegate
 
 function m:Construct()
     print('LuaTestCaseWidget Construct')
 
-    Super.Button_0.OnClicked:Add(self, self.OnButton0Clicked)
+    Super.Button_0.OnClicked:Add(CreateFunctionDelegate(Super, self, self.OnButton0Clicked))
     Super.TextBlock_1:SetText('')
 
-    Super.Button_1.OnClicked:Add(self, self.OnButton1Clicked)
+    Super.Button_1.OnClicked:Add(CreateFunctionDelegate(Super, self, self.OnButton1Clicked))
 end
 
 function m:Destruct()

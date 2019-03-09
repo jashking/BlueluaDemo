@@ -4,6 +4,7 @@ local Super = Super
 local print = print
 local LoadClass = LoadClass
 local CreateFunctionDelegate = CreateFunctionDelegate
+local DeleteFunctionDelegate = DeleteFunctionDelegate
 
 local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
 
@@ -23,6 +24,7 @@ function m:Construct()
 
     -- binding delegate to parent widget's button
     self.Button1ClickedDelegate = self.Button1ClickedDelegate or CreateFunctionDelegate(Super, function() print('Button1 OnClicked') end)
+    Super.Button1.OnClicked:Clear()
     Super.Button1.OnClicked:Add(self.Button1ClickedDelegate)
 
     self.TimerDelegate = self.TimerDelegate or CreateFunctionDelegate(Super, self, self.DelegateCallback)
@@ -37,8 +39,7 @@ function m:DelegateCallback()
     print('DelegateCallback', tostring(self), count)
     if count >= 10 and self.TimerDelegate then
         KismetSystemLibrary:K2_ClearTimerDelegate(self.TimerDelegate)
-        -- Clear: unbind Delegate and lua function, but Delegate Object still exit until set it with nil
-        self.TimerDelegate:Clear()
+        DeleteFunctionDelegate(self.TimerDelegate)
         self.TimerDelegate = nil
     end
 end
@@ -51,22 +52,22 @@ end
 -- Override UseCaseWidget TestBlueprintImplementableEvent Event
 function m:TestBlueprintImplementableEvent(Param)
     print('TestBlueprintImplementableEvent in lua')
-	Super:TestBlueprintImplementableEvent_Default(Param)
-	return Param
+    Super:TestBlueprintImplementableEvent_Default(Param)
+    return Param
 end
 
 -- Override UseCaseWidget TestBlueprintNativeEvent1 Event
 function m:TestBlueprintNativeEvent1(Param)
-	print('TestBlueprintNativeEvent1 in lua')
-	Super:TestBlueprintNativeEvent1_Default(Param)
-	return Param
+    print('TestBlueprintNativeEvent1 in lua')
+    Super:TestBlueprintNativeEvent1_Default(Param)
+    return Param
 end
 
 -- Override UseCaseWidget TestBlueprintNativeEvent2 Event
 function m:TestBlueprintNativeEvent2(Param)
-	print('TestBlueprintNativeEvent2 in lua')
-	Super:TestBlueprintNativeEvent2_Default(Param)
-	return Param
+    print('TestBlueprintNativeEvent2 in lua')
+    Super:TestBlueprintNativeEvent2_Default(Param)
+    return Param
 end
 
 function m:TestLuaOverrideBPFunction(Param1, Param2, Param3, Param4, Param5, Param6, Param7, Param8, Param9, Param10, Param11, Param12, Param13)
