@@ -4,7 +4,7 @@ local Super = Super
 local print = print
 local LoadClass = LoadClass
 local CreateFunctionDelegate = CreateFunctionDelegate
-local DeleteFunctionDelegate = DeleteFunctionDelegate
+local DestroyObject = DestroyObject
 
 local KismetSystemLibrary = LoadClass('KismetSystemLibrary')
 
@@ -39,7 +39,7 @@ function m:DelegateCallback()
     print('DelegateCallback', tostring(self), count)
     if count >= 10 and self.TimerDelegate then
         KismetSystemLibrary:K2_ClearTimerDelegate(self.TimerDelegate)
-        DeleteFunctionDelegate(self.TimerDelegate)
+        DestroyObject(self.TimerDelegate)
         self.TimerDelegate = nil
     end
 end
