@@ -117,11 +117,4 @@ function m:TestFunction2(Param1, Param2)
     return Param1, Param2
 end
 
-function m:OnInitBPFunctionOverriding()
-    return {
-        'TestLuaOverrideBPFunction',
-        'TestFunction2',
-    }
-end
-
 return m
