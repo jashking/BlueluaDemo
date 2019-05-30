@@ -34,6 +34,9 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void ProcessEvent(UFunction* Function, void* Parameters) override;
 
+	UFUNCTION(BlueprintNativeEvent)
+	void OnRep_Counter();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -50,4 +53,7 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "LuaImplementable", meta = (AllowPrivateAccess = "true"))
 	FString LuaFilePath;
+
+	UPROPERTY(ReplicatedUsing=OnRep_Counter)
+	int32 Counter;
 };

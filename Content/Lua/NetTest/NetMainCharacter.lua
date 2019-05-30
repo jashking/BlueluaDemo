@@ -72,4 +72,14 @@ function m:TestBPServerFunction()
     Super:TestBPClientFunction() -- will run on remote client
 end
 
+-- override property replicated event in c++
+function m:OnRep_Counter()
+    print('OnRep_Counter:', Super.Counter)
+end
+
+-- override property replicated event in blueprint
+function m:OnRep_BPCounter()
+    print('OnRep_BPCounter:', Super.BPCounter)
+end
+
 return m

@@ -87,11 +87,27 @@ void ANetCharacter::ProcessEvent(UFunction* Function, void* Parameters)
 	LuaProcessEvent<Super>(Function, Parameters);
 }
 
+void ANetCharacter::OnRep_Counter_Implementation()
+{
+	UE_LOG(LogTemp, Display, TEXT("%sNative OnRep_Counter: %d"), *GetPrefix(this), Counter);
+}
+
 // Called every frame
 void ANetCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (Role == ROLE_Authority)
+	{
+		static float UpdateTime = 0;
+		UpdateTime += DeltaTime;
+
+		if (UpdateTime > 1.f)
+		{
+			++Counter;
+			UpdateTime = 0.f;
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -123,4 +139,11 @@ TSharedPtr<FLuaState> ANetCharacter::OnInitLuaState()
 	}
 
 	return GameInstanceLuaState;
+}
+
+void ANetCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ANetCharacter, Counter);
 }
