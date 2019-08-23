@@ -18,35 +18,57 @@ function m:Destruct()
     print('LuaTestCaseWidget Destruct')
 end
 
+local FunctionNoParam = Super.FunctionNoParam
+
+local EmptyFunctionOneIntParam = Super.EmptyFunctionOneIntParam
+local EmptyFunctionTwoIntParam = Super.EmptyFunctionTwoIntParam
+local EmptyFunctionThreeIntParam = Super.EmptyFunctionThreeIntParam
+local EmptyFunctionFourIntParam = Super.EmptyFunctionFourIntParam
+local EmptyFunctionFiveIntParam = Super.EmptyFunctionFiveIntParam
+
+local EmptyFunctionOneStringParam = Super.EmptyFunctionOneStringParam
+local EmptyFunctionTwoStringParam = Super.EmptyFunctionTwoStringParam
+local EmptyFunctionThreeStringParam = Super.EmptyFunctionTwoStringParam
+local EmptyFunctionFourStringParam = Super.EmptyFunctionFourStringParam
+local EmptyFunctionFiveStringParam = Super.EmptyFunctionFiveStringParam
+
+local EmptyFunctionOneVectorParam = Super.EmptyFunctionOneVectorParam
+local EmptyFunctionTwoVectorParam = Super.EmptyFunctionTwoVectorParam
+local EmptyFunctionThreeVectorParam = Super.EmptyFunctionThreeVectorParam
+local EmptyFunctionFourVectorParam = Super.EmptyFunctionFourVectorParam
+local EmptyFunctionFiveVectorParam = Super.EmptyFunctionFiveVectorParam
+
+local EmptyFunctionMixParam = Super.EmptyFunctionMixParam
+
 function m:OnButton0Clicked()
     Super.TextBlock_1:SetText('')
 
 ---[[
-    self:TestFunction('FunctionNoParam', function () Super:FunctionNoParam() end)
-    self:TestFunction('EmptyFunctionOneIntParam', function () local r = Super:EmptyFunctionOneIntParam(1) end)
-    self:TestFunction('EmptyFunctionTwoIntParam', function () local r = Super:EmptyFunctionTwoIntParam(1, 2) end)
-    self:TestFunction('EmptyFunctionThreeIntParam', function () local r = Super:EmptyFunctionThreeIntParam(1, 2, 3) end)
-    self:TestFunction('EmptyFunctionFourIntParam', function () local r = Super:EmptyFunctionFourIntParam(1, 2, 3, 4) end)
-    self:TestFunction('EmptyFunctionFiveIntParam', function () local r = Super:EmptyFunctionFiveIntParam(1, 2, 3, 4, 5) end)
+    self:TestFunction('FunctionNoParam', function () FunctionNoParam(Super) end)
+    self:TestFunction('EmptyFunctionOneIntParam', function () local r = EmptyFunctionOneIntParam(Super, 1) end)
+    self:TestFunction('EmptyFunctionTwoIntParam', function () local r = EmptyFunctionTwoIntParam(Super, 1, 2) end)
+    self:TestFunction('EmptyFunctionThreeIntParam', function () local r = EmptyFunctionThreeIntParam(Super, 1, 2, 3) end)
+    self:TestFunction('EmptyFunctionFourIntParam', function () local r = EmptyFunctionFourIntParam(Super, 1, 2, 3, 4) end)
+    self:TestFunction('EmptyFunctionFiveIntParam', function () local r = EmptyFunctionFiveIntParam(Super, 1, 2, 3, 4, 5) end)
 
-    self:TestFunction('EmptyFunctionOneStringParam', function () local r = Super:EmptyFunctionOneStringParam('1') end)
-    self:TestFunction('EmptyFunctionTwoStringParam', function () local r = Super:EmptyFunctionTwoStringParam('1', '2') end)
-    self:TestFunction('EmptyFunctionThreeStringParam', function () local r = Super:EmptyFunctionThreeStringParam('1', '2', '3') end)
-    self:TestFunction('EmptyFunctionFourStringParam', function () local r = Super:EmptyFunctionFourStringParam('1', '2', '3', '4') end)
-    self:TestFunction('EmptyFunctionFiveStringParam', function () local r = Super:EmptyFunctionFiveStringParam('1', '2', '3', '4', '5') end)
+    self:TestFunction('EmptyFunctionOneStringParam', function () local r = EmptyFunctionOneStringParam(Super, '1') end)
+    self:TestFunction('EmptyFunctionTwoStringParam', function () local r = EmptyFunctionTwoStringParam(Super, '1', '2') end)
+    self:TestFunction('EmptyFunctionThreeStringParam', function () local r = EmptyFunctionThreeStringParam(Super, '1', '2', '3') end)
+    self:TestFunction('EmptyFunctionFourStringParam', function () local r = EmptyFunctionFourStringParam(Super, '1', '2', '3', '4') end)
+    self:TestFunction('EmptyFunctionFiveStringParam', function () local r = EmptyFunctionFiveStringParam(Super, '1', '2', '3', '4', '5') end)
 
     local KismetMathLibrary = LoadClass('KismetMathLibrary')
     local v = KismetMathLibrary:MakeVector(1, 2, 3)
 
-    self:TestFunction('EmptyFunctionOneVectorParam', function () local r = Super:EmptyFunctionOneVectorParam(v) end)
-    self:TestFunction('EmptyFunctionTwoVectorParam', function () local r = Super:EmptyFunctionTwoVectorParam(v, v) end)
-    self:TestFunction('EmptyFunctionThreeVectorParam', function () local r = Super:EmptyFunctionThreeVectorParam(v, v, v) end)
-    self:TestFunction('EmptyFunctionFourVectorParam', function () local r = Super:EmptyFunctionFourVectorParam(v, v, v, v) end)
-    self:TestFunction('EmptyFunctionFiveVectorParam', function () local r = Super:EmptyFunctionFiveVectorParam(v, v, v, v, v) end)
+    self:TestFunction('EmptyFunctionOneVectorParam', function () local r = EmptyFunctionOneVectorParam(Super, v) end)
+    self:TestFunction('EmptyFunctionTwoVectorParam', function () local r = EmptyFunctionTwoVectorParam(Super, v, v) end)
+    self:TestFunction('EmptyFunctionThreeVectorParam', function () local r = EmptyFunctionThreeVectorParam(Super, v, v, v) end)
+    self:TestFunction('EmptyFunctionFourVectorParam', function () local r = EmptyFunctionFourVectorParam(Super, v, v, v, v) end)
+    self:TestFunction('EmptyFunctionFiveVectorParam', function () local r = EmptyFunctionFiveVectorParam(Super, v, v, v, v, v) end)
 
     local r = KismetMathLibrary:MakeRotator(1, 2, 3)
     local t = KismetMathLibrary:MakeTransform(v, r, v)
-    self:TestFunction('EmptyFunctionMixParam', function () Super:EmptyFunctionMixParam(1, 1, '1', v, r, t, Super) end)
+    self:TestFunction('EmptyFunctionMixParam', function () EmptyFunctionMixParam(Super, 1, 1, '1', v, r, t, Super) end)
 --]]
 end
 
